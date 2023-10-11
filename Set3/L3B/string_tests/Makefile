@@ -1,7 +1,8 @@
-# THE NAME OF YOUR EXECUTABLE
-TARGET = Lecture14
-# ALL CPP COMPILABLE IMPLEMENTATION FILES THAT MAKE UP THE PROJECT
-SRC_FILES = main.cpp
+# A line starting with a has is a comment, we'll build up
+# the below example
+
+TARGET = L3B
+SRC_FILES = main.cpp test_suite.cpp string_functions.cpp
 
 # NO EDITS NEEDED BELOW THIS LINE
 
@@ -15,10 +16,8 @@ OBJECTS = $(SRC_FILES:.cpp=.o)
 ifeq ($(shell echo "Windows"), "Windows")
 	TARGET := $(TARGET).exe
 	DEL = del
-	Q =
 else
-	DEL = rm -f
-	Q = "
+	DEL = rm
 endif
 
 all: $(TARGET)
@@ -30,15 +29,17 @@ $(TARGET): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(CXXVERSION) $(CXXFLAGS_DEBUG) -o $@ -c $<
 
 clean:
-	$(DEL) $(TARGET) $(OBJECTS)
+	$(DEL) -f $(TARGET) $(OBJECTS) Makefile.bak
 
 depend:
 	@sed -i.bak '/^# DEPENDENCIES/,$$d' Makefile
-	@$(DEL) sed*
-	@echo $(Q)# DEPENDENCIES$(Q) >> Makefile
+	@$(DEL) -f sed*
+	@echo "# DEPENDENCIES" >> Makefile
 	@$(CXX) -MM $(SRC_FILES) >> Makefile
 
 .PHONY: all clean depend
 
 # DEPENDENCIES
-main.o: main.cpp
+main.o: main.cpp test_suite.h
+test_suite.o: test_suite.cpp test_suite.h string_functions.h
+string_functions.o: string_functions.cpp string_functions.h
