@@ -16,7 +16,7 @@ Entity::Entity(char newChar, Position newPosition, Entity listOfEntities[], Posi
         placesToGo[1] = *(new Position(-1, 1));
         placesToGo[2] = *(new Position(1, 1));
     }
-    if(myChar == 'W' || myChar == 'X' || myChar == 'Y' || myChar == 'Z' || myChar == 'V'){
+    if(myChar == '~' || myChar == 'W' || myChar == 'X' || myChar == 'Y' || myChar == 'Z' || myChar == 'V'){
         placesToGo[0] = *(new Position(0, 1));
         placesToGo[1] = *(new Position(-1, 1));
         placesToGo[2] = *(new Position(1, 1));
@@ -81,7 +81,7 @@ void Entity::swapEntities(){
     //cout << oldPosition.x  << " "  << oldPosition.y  << "    "  << position.x  << " "  << position.y  << "    " << endl;
     // position is set to oldPosition and oldPosition is set to default
 
-
+ 
     //cout << this->getChar() << myTempChar;
     level[positionToIndex(position)] = myNewEntity;
     level[positionToIndex(oldPosition)] = otherNewEntity;  // oldPosition and position both change values here
@@ -110,7 +110,7 @@ void Entity::printPosition() const{
 }
 
 int Entity::displacementPriority() const{
-    if(myChar == 'W' || myChar == 'X' || myChar == 'Y' || myChar == 'Z' || myChar == 'V') return 1;
+    if(myChar == '~' || myChar == 'W' || myChar == 'X' || myChar == 'Y' || myChar == 'Z' || myChar == 'V') return 1;
     if(myChar == '-') return 9;
     return 0;
 }
